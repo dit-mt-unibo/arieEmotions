@@ -23,10 +23,11 @@ The classes we aim at consider at this stage are 7 (the definitions come from th
 
 Following, we show some examples. 
 
-^ Verso            ^ Classe       ^ Verso          ^ Classe ^
-| a | b | c | s | 
+^ Verso            ^ Classe ^
+| Vorrei vendicarmi del perfido cor | Rabbia |
+| Lieta canta e dolce ride la romita tortorella, l'innocente pastorella | Gioia |
+| Amare e tacere è pena tiranna d'un povero cor | Tristezza |
 
-**Attention: I wanted to add some examples from the files provided by Federico on July 10th. I didn't find good ones!**
 
 ==== Annotation ====
 
@@ -38,12 +39,12 @@ At this stage we are focused on opera. You will annotate arie in Italian from di
 
 //A(n improved) copy of the definitions above//
 
-In the following link (//link to the spreadsheet//), you will observe **k** columns representing a number of opera arie. The columns contain the following (**I guess we have to add the column titles here; I add some proposals**):
+In the following link ([[https://github.com/dit-mt-unibo/arieEmotions/blob/master/data/Arie_testi.xlsx]]), you will observe **6** columns representing a number of opera arie. The columns contain the following:
   - **id** A unique id, tied to the verse. You can safely ignore it. Please, do not modify this column. 
   - **verse** A verse, inside of an aria. This is the text that you are going to analyse. 
   - **sentiment** An empty field. It is here where you can select the expressed emotion (or none of them)  
- - **sentimet (sec.)** An empty field. This is available to choose a secondary emotion, in case it is really difficult to choose just one for the verse  
-  - **confidence** An empty field. A field with default value "I am sure". It is ok if you are not 100% sure about one decision. If that is the case, please let us know by choosing the right confidence level here
+ - **sentiment sec.** An empty field. This is available to choose a secondary emotion, in case it is really difficult to choose just one for the verse  
+  - **confidence (fiducia)** An empty field. A field with default value "I am sure". It is ok if you are not 100% sure about one decision. If that is the case, please let us know by choosing the right confidence level here
   - **comments** An empty field. Feel free to tell us something about this example, if you feel like (this is not mandatory).
 
 
