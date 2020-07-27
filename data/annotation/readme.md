@@ -24,6 +24,7 @@ The classes we aim at consider at this stage are 7 (the definitions come from th
 Following, we show some examples. 
 
 ^ Verso            ^ Classe ^
+
 | Vorrei vendicarmi del perfido cor | Rabbia |
 | Lieta canta e dolce ride la romita tortorella, l'innocente pastorella | Gioia |
 | Amare e tacere è pena tiranna d'un povero cor | Tristezza |
