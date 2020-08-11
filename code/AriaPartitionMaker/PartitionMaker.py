@@ -11,6 +11,7 @@ class Emotions(IntEnum):
     Tristezza = 4
     Paura = 5
     Nessuna = 6
+    Ignora = 7
 
 
 class Aria:
@@ -28,7 +29,7 @@ class AriaSet:
     # a list of Aria objects
     # frequencies
     # verses , count of, to compute probability/frequency
-    discount = 1 / 100000
+    discount = 1.0 / 100000
 
     def __init__(self):
         self.verses = 0
@@ -51,14 +52,17 @@ class AriaSet:
         return kl
 
     def write(self, filename, lines):
-        f = open(filename, "w")
-        for a in self.arias:
-            for l in range(a.start, a.end + 1):
-                f.write(lines[l])
+        with open(filename, "w") as f:
+            for a in self.arias:
+                for l in range(a.start, a.end + 1):
+                    f.write(lines[l])
         print("Written ", filename)
 
 
 class Partition:
+    dev_name = "_dev.tsv"
+    test_name = "_test.tsv"
+    train_name = "_train.tsv"
 
     def __init__(self, ariaset, size_train, size_dev, size_test):
         self.train = AriaSet()
@@ -82,9 +86,9 @@ class Partition:
         self.similarity = self.train.similarity(self.dev) + self.train.similarity(self.test)
 
     def write(self, basefilename, lines):
-        self.dev.write(basefilename + "_dev.tsv", lines)
-        self.test.write(basefilename + "_test.tsv", lines)
-        self.train.write(basefilename + "_train.tsv", lines)
+        self.dev.write(basefilename + self.dev_name, lines)
+        self.test.write(basefilename + self.test_name, lines)
+        self.train.write(basefilename + self.train_name, lines)
 
 
 # main program
@@ -104,9 +108,9 @@ def read_arias(filename):
         # ZAP1590034_00 Dovrei... Ma no..Paura       totalmente sicura
         # ensure we have 4 columns / parts:
         if len(verseParts) < 4:
-            f"oops! didnt'expect this. Line was:\n{line}"
+            print(f"oops! didnt'expect this. Line was:\n{line}")
             break
-        ariaId = verseParts[0][0:-3]
+        ariaId = verseParts[0][:-3]
         if ariaId != currentId:
             if currentId != None:
                 inprogress.end = index - 1  # previous verse was the last one.
@@ -118,8 +122,20 @@ def read_arias(filename):
         # else nothing to do..
 
         emozioneId = Emotions.Nessuna
-        if (verseParts[2] != nessuna) and (len(verseParts[2]) > 0):
+        if verseParts[2] == nessuna:
+            verseParts[2] = "Nessuna"
+            rewrite = True
+        elif len(verseParts[2]) == 0:
+            rewrite = True
+            verseParts[2] = "Ignora"
+            emozioneId = Emotions.Ignora
+        else:
+            rewrite = False
             emozioneId = Emotions[verseParts[2]]
+
+        if rewrite:
+            line = f"{verseParts[0]}\t{verseParts[1]}\t{verseParts[2]}\t{verseParts[3]}\t\n"
+            lines[index] = line
         inprogress.frequencies[emozioneId] += 1
         index += 1
     return allArias
@@ -127,27 +143,27 @@ def read_arias(filename):
 
 def main():
     fileName = "C:\\Users\\fede9\\source\\repos\\arieEmotions\\data\\annotation\\arie_testi_full.tsv"
-    outfileBaseName = "ariaset"
+    outfile_base_name = "ariaset"
     arias = read_arias(fileName)
     partitions = 1000
     size_train = 2500
     size_dev = 250
     size_test = 250
 
-    minDivergence = 2
-    minDivergencePart = 0
+    min_divergence = 2
+    min_divergence_part = 0
     parts = [Partition]
     for i in range(partitions):
         part = Partition(arias, size_train, size_dev, size_test)
         parts.append(part)
-        if part.similarity < minDivergence:
-            minDivergence = part.similarity
-            minDivergencePart = i
+        if part.similarity < min_divergence:
+            min_divergence = part.similarity
+            min_divergence_part = i
 
     # output partition with smaller divergence (max similarity)
-    print(f"partition with max similarity is {minDivergencePart}, similarity={minDivergence}")
+    print(f"partition with max similarity is {min_divergence_part}, similarity={min_divergence}")
     # output to files the actual partition:
-    parts[minDivergencePart].write(outfileBaseName, lines)
+    parts[min_divergence_part].write(outfile_base_name, lines)
 
 
 if __name__ == "__main__":
