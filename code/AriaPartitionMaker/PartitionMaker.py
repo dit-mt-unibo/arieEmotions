@@ -142,7 +142,7 @@ def read_arias(filename):
 
 
 def main():
-    fileName = "C:\\Users\\fede9\\source\\repos\\arieEmotions\\data\\annotation\\arie_testi_full.tsv"
+    fileName = "C:\\Users\\fede9\\source\\repos\\arieEmotions\\data\\annotation\\arie_testi_full_combinate_finale.tsv"
     outfile_base_name = "ariaset"
     arias = read_arias(fileName)
     partitions = 1000
