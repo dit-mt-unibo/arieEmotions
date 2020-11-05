@@ -10,6 +10,7 @@ var msc_VERSION = 44;
 
 var opt, onYouTubeIframeAPIReady, msc_credits, media_height, times_arr, offset_js, abc_arr,
     lpRec, media_file, abc_enc, play_list;
+var lyricsCollection = null; // dictionary of language + lyrics
 (function () {
 "use strict";
 var muziek, curmtr, curtmp, msc_svgs, msc_gs, msc_wz, offset, mediaFnm, abcSave, elmed, scoreFnm, timerId = -1;
@@ -98,9 +99,12 @@ function Wijzer (xss, ymins, ymaxs, times, tixlb, lbtix, tixbts) {  // create th
     this.noCursor = 0;      // hide cursor
     this.nseqCur = 0;       // current position in this.ntsSeq
     this.tAbcLast = 0;      // last ABC time of the cursor
-	this.lyricsTimes = [1, 2, 3, 4, 5, 10];
-	this.lyricsLines = ["first line", "second line", "third line", "fourth line", "fifth line", "sixth line"];
-	this.lyricsCurr = 0;
+    // FEDERICO
+	//this.lyricsTimes = [1, 2, 3, 4, 5, 10];
+    //this.lyricsLines = ["first line", "second line", "third line", "fourth line", "fifth line", "sixth line"];
+    this.lyricsCollection = {};
+    this.lyricsCurr = 0;
+    this.lyricsCurrLang = "en";
 }
 Wijzer.prototype.setline = function (line) {
     $('#wijzer').remove (); // take away cursor from where it was
@@ -172,11 +176,20 @@ Wijzer.prototype.time2x = function (t, rondaf, noAnim) {
         console.log ('tijdcor: ' + (t - TOFF) + ', maat: ' + tix);
         if (tix < times.length - 1) tix += 1;   // t now in the next measure
     }
-	if( t > this.lyricsTimes[this.lyricsCurr])
-	{
-		$('#lyrics').html(this.lyricsLines[this.lyricsCurr]);
-		this.lyricsCurr++;
-	}
+    // FEDERICO
+    if (lyricsCollection) {
+        var lyricsObject = lyricsCollection[this.lyricsCurrLang];
+        if (lyricsObject) {
+            if (t > lyricsObject[this.lyricsCurr].startTime) {
+                $('#lyrics').html(lyricsObject[this.lyricsCurr].text);
+                this.lyricsCurr++;
+            }
+        }
+        else
+            console.log("no lyrics for " + this.lyricsCurrLang);       
+    }
+    else
+        console.log("no lyrics present");
     if (opt.metro && tix != this.time_ix) metronome (tix, t);
     this.time_ix = tix;
     this.repcnt = this.tixlb [tix][2];
@@ -498,22 +511,106 @@ function readLocalFile (type, files) {
     }
 }
 
-function readSrt(text) {
-	// insert parse srt code here.
+    var PF_SRT = function () {
+        var pattern = /(\d+)\n([\d:,]+)\s+-{2}\>\s+([\d:,]+)\n([\s\S]*?(?=\n{2}|$))/gm;
+        var _regExp;
+
+        var init = function () {
+            _regExp = new RegExp(pattern);
+        };
+        function convertToSeconds(text) {
+            var a = text.split(":");	// +a[2].replace(',','.')
+            var seconds = parseInt(a[0]) * 3600 + parseInt(a[1] * 60) + parseFloat(a[2].replace(',', '.'));
+            return seconds;
+        }
+        var parse = function (f) {
+            if (typeof (f) != "string")
+                throw "Sorry, Parser accept string only.";
+
+            var result = [];
+            if (f == null)
+                return _subtitles;
+
+            f = f.replace(/\r\n|\r|\n/g, '\n')
+
+            var matches;
+            while ((matches = pattern.exec(f)) != null) {
+                result.push(toLineObj(matches));
+            }
+            return result;
+        }
+        var toLineObj = function (group) {
+            return {
+                line: group[1],
+                startTime: convertToSeconds(group[2]),
+                endTime: convertToSeconds(group[3]),
+                text: group[4]
+            };
+        }
+        init();
+        return {
+            parse: parse
+        }
+    }();
+
+function readSrt(fileName, text) {
+    // insert parse srt code here.
+    var result = PF_SRT.parse(text);
+    lyricsCollection = {};
+    lyricsCollection["en"] = result;
+
+    var langs = ["it", "de", "fr", "ja"];
+    for (var lang of langs) {
+        var other = addLyricsIfFound(fileName, lang);
+        if (other.length > 0)
+            lyricsCollection[lang] = other;
+    }
+
+    if (msc_wz)
+        msc_wz.lyricsCollection = lyricsCollection;
 }
+
+    function addLyricsIfFound(baseName, lang)
+    {
+        var dot = baseName.indexOf('.');
+        var fileName = baseName.substr(0, dot - 3) + "_" + lang + baseName.substr(dot);
+        try {
+            var request = new XMLHttpRequest();
+            request.open("GET", fileName, false);
+            request.onloadend = function () {
+                if (request.status == 404)
+                    throw new Error(fileName + ' replied 404');
+            }
+            request.send(null);
+            var text = request.responseText;
+            var result = PF_SRT.parse(text);
+            return result;
+        }
+        catch (err) {
+            console.log("not able to read" + fileName);
+            return null;
+        }
+        
+    }
 
 function readLocalSrtFile (type, files) {
     $('#err').text ('');    // clear error output area
     times_arr = undefined;  // clear possible preload data
     offset_js = undefined;
+    var f = type == 'dd' ? files[0] : $('#srtf').prop('files')[0];
     var freader = new FileReader ();
-    freader.onload = function (e) { readSrt (freader.result); }
-    var f = type == 'dd' ? files [0] : $('#srtf').prop ('files')[0];
+    freader.onload = function (e) { readSrt (f.name, freader.result); }
     if (f) {
         scoreFnm = f.name.split ('.')[0];
-        freader.readAsText (f);
+        freader.readAsText(f);
     }
 }
+
+    function changeLanguage() {
+        var lang = document.getElementById("languages").value;
+        if (msc_wz)
+            msc_wz.lyricsCurrLang = lang;
+    }
 
 
 function doDrop (e) {
@@ -955,7 +1052,8 @@ function dolayout (abctxt) {
     }
     if (opt.offset) offset = opt.offset;    // (URL) parameter takes precedence
     abcSave = abc_lines;   // keep in global for saving
-    msc_wz = new Wijzer (wz_xs, wz_ymin, wz_ymax, times, tixlb, lbtix, tixbts);
+    msc_wz = new Wijzer(wz_xs, wz_ymin, wz_ymax, times, tixlb, lbtix, tixbts);
+    msc_wz.lyricsCollection = lyricsCollection;
     msc_svgs.each (function () { $(this).mousedown (klik); });  // each music line gets the click handler
     if (!elmed) elmed = dummyPlayer;
     setTimeout (function () {   // wait on DOM rendering ready
@@ -1227,7 +1325,22 @@ function saveTiming () {
         abcpln = abcSave.map (function f (x) { return JSON.stringify (x); });
     }
     abcenc = 'abc_enc = [' + abcenc.join (',\n') + '];\n';
-    abcpln = 'abc_arr = [' + abcpln.join (',\n') + '];\n';
+    abcpln = 'abc_arr = [' + abcpln.join(',\n') + '];\n';
+    var lyrics = msc_wz.lyricsCollection;
+    var lyricsString = 'lyr_arr = {\n';
+    for (var lang in lyrics) {
+        lyricsString += '"' + lang + '": [\n'
+        for (var caption of lyrics[lang]) {
+            lyricsString += '{\n';
+            lyricsString += '    "line": ' + caption.line + ',\n';
+            lyricsString += '    "startTime": ' + caption.startTime + ',\n';
+            lyricsString += '    "endTime": ' + caption.endTime + ',\n';
+            lyricsString += '    "text": "' + caption.text + '"\n';
+            lyricsString += '},\n';
+        }
+        lyricsString += '],\n';
+    }
+    lyricsString += '};\n\n';
 
     res =  '//########################################\n'
     res += '//# This page contains score data, timing data and the media file path. Save it as a text file in\n'
@@ -1236,7 +1349,7 @@ function saveTiming () {
     res += '//# Also works locally with file:///path/to/abcweb.html?file_name\n'
     res += '//# **** You have to correct the path to the media file below! (media_file="...";) ****\n'
     res += '//########################################\n//#\n'
-    res += fnm + cdt + of + os + lpm + ts + abcpln + abcenc;
+    res += fnm + cdt + of + os + lpm + ts + abcpln + abcenc + lyricsString;
 
     var dataUrl = 'data:text/plain;charset=utf-8;base64,' + btoa (unescape (encodeURIComponent (res)));
     if ($('#drpuse').prop ('checked')) {
@@ -1352,6 +1465,10 @@ function msc_check_preload () {
             opt.no_menu = 1;
         }
         readAbcOrXML (abc_string);  // always defined in preload -> starts another msc_check_preload after "eval ()" which redefines abc_arr;
+    }
+    // FEDERICO
+    if (typeof (lyr_arr) != 'undefined') {
+        lyricsCollection = lyr_arr;
     }
     for (var id in opt_url) opt [id] = opt_url [id];            // options in URL take precedence
     if ('nospd' in opt) {       // translate for backwards compatibility
@@ -1578,7 +1695,8 @@ $(document).ready (function () {
     $('#rollijn').on ('mousedown touchstart', lijn_shift);
     $('#fknp').change (function () { readLocalFile ('btn', []); });
     $('#mknp').change (function () { readMedia ('btn', []); });
-	$('#srtf').change (function () { readLocalSrtFile ('btn', []); });
+    $('#srtf').change(function () { readLocalSrtFile('btn', []); });
+    $('#languages').change(function () { changeLanguage(); });
     $('#yknp').click (readMediaYub);
     $('#yubid').keydown (function (e) { e.stopPropagation (); });   // prevent bubble up to shortcut actions
     $('#yubuse').change (medbtnSwitch);
