@@ -513,6 +513,7 @@ function readLocalFile (type, files) {
 
     var PF_SRT = function () {
         var pattern = /(\d+)\n([\d:,]+)\s+-{2}\>\s+([\d:,]+)\n([\s\S]*?(?=\n{2}|$))/gm;
+		var pattern2 = /(\d+)\n([\d:.]+)\s+-{2}\>\s+([\d:.]+)\n([\s\S]*?(?=\n{2}|$))/gm;
         var _regExp;
 
         var init = function () {
@@ -537,6 +538,11 @@ function readLocalFile (type, files) {
             while ((matches = pattern.exec(f)) != null) {
                 result.push(toLineObj(matches));
             }
+			if((result == null) || (result.length == 0)) {
+					while ((matches = pattern2.exec(f)) != null) {
+						result.push(toLineObj(matches));
+					}
+			}
             return result;
         }
         var toLineObj = function (group) {
@@ -559,7 +565,7 @@ function readSrt(fileName, text) {
     lyricsCollection = {};
     lyricsCollection["en"] = result;
 
-    var langs = ["it", "de", "fr", "ja"];
+    var langs = ["it", "de", "es", "ja"];
     for (var lang of langs) {
         var other = addLyricsIfFound(fileName, lang);
         if (other.length > 0)
