@@ -203,233 +203,227 @@ lyr_arr = {
     "endTime": 202,
     "text": "E... uscito dalla folla cittadina"
 },
-],
+    ],
 "de": [
-{
-    "line": 1,
-    "startTime": 18.7,
-    "endTime": 21.5,
-    "text": "Diese Klinge birgt eine finstere"
-},
-{
-    "line": 2,
-    "startTime": 22.8,
-    "endTime": 26.8,
-    "text": "Durch sie wurde viel unschuldiges Blut"
-},
-{
-    "line": 3,
-    "startTime": 29,
-    "endTime": 32.45,
-    "text": "Es ist töricht, so ganz allein und"
-},
-{
-    "line": 4,
-    "startTime": 32.75,
-    "endTime": 35.8,
-    "text": "Du kannst von Glück sagen, dass dein"
-},
-{
-    "line": 5,
-    "startTime": 36.25,
-    "endTime": 37.3,
-    "text": "Danke."
-},
-{
-    "line": 6,
-    "startTime": 38.5,
-    "endTime": 40,
-    "text": "Also..."
-},
-{
-    "line": 7,
-    "startTime": 40.4,
-    "endTime": 44.8,
-    "text": "...was führt dich in die Lande der"
-},
-{
-    "line": 8,
-    "startTime": 46,
-    "endTime": 48.5,
-    "text": "Ich suche jemanden."
-},
-{
-    "line": 9,
-    "startTime": 49,
-    "endTime": 53.2,
-    "text": "Ein teurer Freund?"
-},
-{
-    "line": 10,
-    "startTime": 54.4,
-    "endTime": 56,
-    "text": "Ein Drache."
-},
-{
-    "line": 11,
-    "startTime": 58.85,
-    "endTime": 61.75,
-    "text": "Ein gefährliches Unterfangen für eine"
-},
-{
-    "line": 12,
-    "startTime": 62.95,
-    "endTime": 65.87,
-    "text": "Ich bin einsam, solange ich mich"
-},
-{
-    "line": 13,
-    "startTime": 118.25,
-    "endTime": 119.5,
-    "text": "Wir sind fast fertig. Ruhig..."
-},
-],
-"es": [
-{
-    "line": 1,
-    "startTime": 18.7,
-    "endTime": 21.5,
-    "text": "Esta hoja tiene un pasado oscuro."
-},
-{
-    "line": 2,
-    "startTime": 22.8,
-    "endTime": 26.8,
-    "text": "Ha derramado mucha sangre inocente."
-},
-{
-    "line": 3,
-    "startTime": 29,
-    "endTime": 32.45,
-    "text": "Eres una tonta por viajar sola,"
-},
-{
-    "line": 4,
-    "startTime": 32.75,
-    "endTime": 35.8,
-    "text": "Tienes suerte de que aún"
-},
-{
-    "line": 5,
-    "startTime": 36.25,
-    "endTime": 37.3,
-    "text": "Gracias."
-},
-{
-    "line": 6,
-    "startTime": 38.5,
-    "endTime": 40,
-    "text": "Entonces..."
-},
-{
-    "line": 7,
-    "startTime": 40.4,
-    "endTime": 44.8,
-    "text": "Qué te trae a la tierra"
-},
-{
-    "line": 8,
-    "startTime": 46,
-    "endTime": 48.5,
-    "text": "Estoy buscando a alguien."
-},
-{
-    "line": 9,
-    "startTime": 49,
-    "endTime": 53.2,
-    "text": "Alguien muy querido?"
-},
-{
-    "line": 10,
-    "startTime": 54.4,
-    "endTime": 56,
-    "text": "Un dragón."
-},
-{
-    "line": 11,
-    "startTime": 58.85,
-    "endTime": 61.75,
-    "text": "Una aventura peligrosa"
-},
-{
-    "line": 12,
-    "startTime": 62.95,
-    "endTime": 65.87,
-    "text": "He estado sola desde"
-},
-{
-    "line": 13,
-    "startTime": 118.25,
-    "endTime": 119.5,
-    "text": "Ya casi terminamos. Shhh..."
-},
-],
-"ja": [
-{
-    "line": 1,
-    "startTime": 2.7,
-    "endTime": 8.5,
-    "text": "いつか会おう"
-},
-{
-    "line": 2,
-    "startTime": 9,
-    "endTime": 20,
-    "text": "端の煙のワイヤーを"
-},
-{
-    "line": 3,
-    "startTime": 20.3,
-    "endTime": 26,
-    "text": "海の境界。"
-},
-{
-    "line": 4,
-    "startTime": 28.5,
-    "endTime": 36,
-    "text": "そして船が現れます"
-},
-{
-    "line": 5,
-    "startTime": 36.5,
-    "endTime": 42,
-    "text": "それから船は白い"
-},
-{
-    "line": 7,
-    "startTime": 60,
-    "endTime": 72,
-    "text": "ほら、彼が来た！"
-},
-{
-    "line": 8,
-    "startTime": 73.3,
-    "endTime": 86,
-    "text": "会うつもりはない私は立っています"
-},
-{
-    "line": 9,
-    "startTime": 87,
-    "endTime": 96,
-    "text": "丘の端で待って待って"
-},
-{
-    "line": 10,
-    "startTime": 96,
-    "endTime": 104,
-    "text": "素晴らしい時間とそれは私を落ち着かせない"
-},
-{
-    "line": 11,
-    "startTime": 105.3,
-    "endTime": 110,
-    "text": "待ち時間が長い"
-},
-{
-    "line": 12,
-    "startTime": 110.3,
-    "endTime": 230,
-    "text": "そして・・・都会の人ごみの中から"
-},
-],
+        {
+            "line": 1,
+            "startTime": 2.7,
+            "endTime": 8.5,
+        "text": "Eines Tages werden"
+        },
+        {
+            "line": 2,
+            "startTime": 9,
+            "endTime": 18,
+            "text": "wir eine Rauchlinie am äußersten"
+        },
+        {
+            "line": 3,
+            "startTime": 18.3,
+            "endTime": 22,
+            "text": "Rand des Meeres."
+        },
+        {
+            "line": 4,
+            "startTime": 22.3,
+            "endTime": 28,
+            "text": "Und dann erscheint das Schiff"
+        },
+        {
+            "line": 5,
+            "startTime": 28.3,
+            "endTime": 35,
+            "text": "Und dann ist das Schiff weiß."
+        },
+        {
+            "line": 6,
+            "startTime": 40.3,
+            "endTime": 52,
+            "text": "Treten Sie in den Hafen, schütteln Sie Ihr Hallo."
+        },
+        {
+            "line": 7,
+            "startTime": 58.3,
+            "endTime": 62,
+            "text": "Siehst du, er ist gekommen!"
+        },
+        {
+            "line": 8,
+            "startTime": 78.3,
+            "endTime": 82,
+            "text": "Ich werde ihn nicht treffen. Ich stehe dort"
+        },
+        {
+            "line": 9,
+            "startTime": 88.3,
+            "endTime": 95,
+            "text": "am Rande des Hügels und warte, warte"
+        },
+        {
+            "line": 10,
+            "startTime": 98.3,
+            "endTime": 102,
+            "text": "eine lange Zeit und mir macht"
+        },
+        {
+            "line": 11,
+            "startTime": 110.3,
+            "endTime": 120,
+            "text": "das lange Warten nichts aus."
+        },
+        {
+            "line": 12,
+            "startTime": 138.3,
+            "endTime": 202,
+            "text": "Und... aus der Menge der Stadt."
+        },
+    ],
+    "es": [
+        {
+            "line": 1,
+            "startTime": 2.7,
+            "endTime": 8.5,
+            "text": "Un día, veremos"
+        },
+        {
+            "line": 2,
+            "startTime": 9,
+            "endTime": 18,
+            "text": "una línea de humo subir en el otro"
+        },
+        {
+            "line": 3,
+            "startTime": 18.3,
+            "endTime": 22,
+            "text": "lado del mar."
+        },
+        {
+            "line": 4,
+            "startTime": 22.3,
+            "endTime": 28,
+            "text": "Y entonces aparece la nave"
+        },
+        {
+            "line": 5,
+            "startTime": 28.3,
+            "endTime": 35,
+            "text": "Entonces el barco blanco"
+        },
+        {
+            "line": 6,
+            "startTime": 40.3,
+            "endTime": 52,
+            "text": "entra en el puerto, ruge su saludo."
+        },
+        {
+            "line": 7,
+            "startTime": 58.3,
+            "endTime": 62,
+            "text": "¿Ves? ¡Vino!"
+        },
+        {
+            "line": 8,
+            "startTime": 78.3,
+            "endTime": 82,
+            "text": "No voy a bajar, yo no. Me quedo"
+        },
+        {
+            "line": 9,
+            "startTime": 88.3,
+            "endTime": 95,
+            "text": "en el borde de la colina y espero, y espero"
+        },
+        {
+            "line": 10,
+            "startTime": 98.3,
+            "endTime": 102,
+            "text": "mucho tiempo y no me importa"
+        },
+        {
+            "line": 11,
+            "startTime": 110.3,
+            "endTime": 120,
+            "text": "la larga espera."
+        },
+        {
+            "line": 12,
+            "startTime": 138.3,
+            "endTime": 202,
+            "text": "Y fuera de la multitud de la ciudad."
+        },
+    ],
+    "ja": [
+        {
+            "line": 1,
+            "startTime": 2.7,
+            "endTime": 22,
+            "text": "いつか海の端に煙が上がってくるの"
+        },
+        {
+            "line": 2,
+            "startTime": 9,
+            "endTime": 18,
+            "text": "端に煙が上がってくるの"
+        },
+        {
+            "line": 3,
+            "startTime": 18.3,
+            "endTime": 22,
+            "text": "を見るでしょうそして船が現れます"
+        },
+        {
+            "line": 4,
+            "startTime": 22.3,
+            "endTime": 28,
+            "text": "を見るでしょうそして船が現れます"
+        },
+        {
+            "line": 5,
+            "startTime": 28.3,
+            "endTime": 35,
+            "text": "そして白い船が港に入り、彼女の挨拶"
+        },
+        {
+            "line": 6,
+            "startTime": 40.3,
+            "endTime": 52,
+            "text": "そして白い船が港に入り、彼女の挨拶"
+        },
+        {
+            "line": 7,
+            "startTime": 58.3,
+            "endTime": 62,
+            "text": "ほら、彼が来た！"
+        },
+        {
+            "line": 8,
+            "startTime": 78.3,
+            "endTime": 82,
+            "text": "下には行かない私"
+        },
+        {
+            "line": 9,
+            "startTime": 88.3,
+            "endTime": 95,
+            "text": "は丘の端に立って待っていて長い間待っていても構わ"
+        },
+        {
+            "line": 10,
+            "startTime": 98.3,
+            "endTime": 102,
+            "text": "ないそして"
+        },
+        {
+            "line": 11,
+            "startTime": 110.3,
+            "endTime": 120,
+            "text": "ないそして"
+        },
+        {
+            "line": 12,
+            "startTime": 138.3,
+            "endTime": 202,
+            "text": "て・・・都会の人ごみの中から"
+        },
+    ],
 };

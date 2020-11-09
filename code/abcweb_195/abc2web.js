@@ -180,10 +180,17 @@ Wijzer.prototype.time2x = function (t, rondaf, noAnim) {
     if (lyricsCollection) {
         var lyricsObject = lyricsCollection[this.lyricsCurrLang];
         if (lyricsObject) {
-            if (t > lyricsObject[this.lyricsCurr].startTime) {
-                $('#lyrics').html(lyricsObject[this.lyricsCurr].text);
+            if (t >= lyricsObject[this.lyricsCurr].endTime) {
                 this.lyricsCurr++;
+                //console.log("current = " + this.lyricsCurr);
             }
+            if (t >= lyricsObject[this.lyricsCurr].startTime) {
+                $('#lyrics').html(lyricsObject[this.lyricsCurr].text);
+            }
+            else {
+                //console.log("time=%f curStartTime=%f", t, lyricsObject[this.lyricsCurr].startTime);
+            }
+
         }
         else
             console.log("no lyrics for " + this.lyricsCurrLang);       
